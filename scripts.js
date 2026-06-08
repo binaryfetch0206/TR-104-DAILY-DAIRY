@@ -2,30 +2,34 @@ document.addEventListener('DOMContentLoaded', function() {
     generateWeekCards();
 });
 
-const weekIcons = ['⚡','🧠','💻','🔌','📡','🌐','☁️','📊','🔧','📶','🌍','🛡️','🐍','🧪','🚨','🕵️','📦','🛡️','🌐','🔍','🖥️'];
-
+const weekIcons = [
+    '🏢','📒','⚙️','🧩','🎨',
+    '📜','⚛️','🏗️','🐍','🚀',
+    '🔐','📷','📄','🤖','⚡',
+    '📊','📈','🔄','👥','💡','✅'
+];
 const weekLinks = {
-    1: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-1.pdf', additionalInfo: 'Week 1: IoT & Embedded Systems Basics' },
-    2: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-2.pdf', additionalInfo: 'Week 2: Arduino UNO & ESP32 Architecture' },
-    3: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-3.pdf', additionalInfo: 'Week 3: Software Environment Setup' },
-    4: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-4.pdf', additionalInfo: 'Week 4: Interfacing Ultrasonic Sensor (HC-SR04)' },
-    5: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-5.pdf', additionalInfo: 'Week 5: UART Communication Between Arduino & ESP32' },
-    6: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-6.pdf', additionalInfo: 'Week 6: Connecting ESP32 to Wi-Fi (Station Mode)' },
-    7: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-7.pdf', additionalInfo: 'Week 7: Cloud Setup Using ThingSpeak' },
-    8: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-8.pdf', additionalInfo: 'Week 8: Complete IoT Data Pipeline' },
-    9: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-9.pdf', additionalInfo: 'Week 9: ESP32 Local Web Server' },
-    10: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-10.pdf', additionalInfo: 'Week 10: ESP32 SoftAP (Hotspot Mode)' },
-    11: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-11.pdf', additionalInfo: 'Week 11: Implementing Webpage for Sensor Data Display' },
-    12: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-12.pdf', additionalInfo: 'Week 12: Timing Side-Channel Attack Theory' },
-    13: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-13.pdf', additionalInfo: 'Week 13: Writing Timing Attack Script (Python)' },
-    14: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-14.pdf', additionalInfo: 'Week 14: Executing Timing Attack on ESP32' },
-    15: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-15.pdf', additionalInfo: 'Week 15: Timing Attack in Unstable Networks' },
-    16: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-16.pdf', additionalInfo: 'Week 16: MITM Attack Preparation' },
-    17: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-17.pdf', additionalInfo: 'Week 17: Performing ARP Spoofing MITM Attack' },
-    18: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-18.pdf', additionalInfo: 'Week 18: Packet and Linux Basics' },
-    19: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-19.pdf', additionalInfo: 'Week 19: Phishing Detection Backend Development' },
-    20: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-20.pdf', additionalInfo: 'Week 20: URL & Domain Analysis Module' },
-    21: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-21.pdf', additionalInfo: 'Week 21: GUI Development Using Tkinter' }
+    1: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week1.pdf', additionalInfo: 'Week 1: Introduction to Organization and Software Development Fundamentals' },
+    2: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week2.pdf', additionalInfo: 'Week 2: Introduction to TallyPrime and Accounting Concepts' },
+    3: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week3.pdf', additionalInfo: 'Week 3: Fundamentals of Tally Definition Language (TDL)' },
+    4: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week4.pdf', additionalInfo: 'Week 4: Advanced TDL Programming and Report Customization' },
+    5: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week5.pdf', additionalInfo: 'Week 5: Introduction to Web Development using HTML and CSS' },
+    6: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week6.pdf', additionalInfo: 'Week 6: JavaScript Programming and Interactive Web Development' },
+    7: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week7.pdf', additionalInfo: 'Week 7: React.js Fundamentals and Component-Based Development' },
+    8: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week8.pdf', additionalInfo: 'Week 8: Advanced React.js and Frontend Architecture Design' },
+    9: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week9.pdf', additionalInfo: 'Week 9: Python Programming Fundamentals for Application Development' },
+    10: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week10.pdf', additionalInfo: 'Week 10: Backend Development using FastAPI Framework' },
+    11: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week11.pdf', additionalInfo: 'Week 11: Frontend and Backend Integration with Authentication System' },
+    12: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week12.pdf', additionalInfo: 'Week 12: Study and Integration of OCR Technology' },
+    13: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week13.pdf', additionalInfo: 'Week 13: Invoice Analysis and Data Extraction Techniques' },
+    14: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week14.pdf', additionalInfo: 'Week 14: Artificial Intelligence Integration using Groq Cloud AI' },
+    15: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week15.pdf', additionalInfo: 'Week 15: Development of Automated OCR and AI Processing Pipeline' },
+    16: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week16.pdf', additionalInfo: 'Week 16: Excel Automation and Accounting Record Generation' },
+    17: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week17.pdf', additionalInfo: 'Week 17: Dashboard Development and Data Management Features' },
+    18: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week18.pdf', additionalInfo: 'Week 18: Batch Invoice Processing and Workflow Optimization' },
+    19: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week19.pdf', additionalInfo: 'Week 19: Design and Implementation of Visitor Management Module' },
+    20: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week20.pdf', additionalInfo: 'Week 20: Development of Electricity Consumption Monitoring Module' },
+    21: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-104_DAILY-DIARY/main/week21.pdf', additionalInfo: 'Week 21: System Testing, Documentation, and Project Finalization' }
 };
 
 function openPdfInNewTab(pdfPath) {
