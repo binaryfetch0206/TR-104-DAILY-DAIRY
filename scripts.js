@@ -1,15 +1,8 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     generateWeekCards();
-
-    const previewLink = document.getElementById('download-link');
-    previewLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        const pdfPath = previewLink.dataset.pdf;
-        if (pdfPath) {
-            openPdfInNewTab(pdfPath);
-        }
-    });
 });
+
+const weekIcons = ['⚡','🧠','💻','🔌','📡','🌐','☁️','📊','🔧','📶','🌍','🛡️','🐍','🧪','🚨','🕵️','📦','🛡️','🌐','🔍','🖥️'];
 
 const weekLinks = {
     1: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-1.pdf', additionalInfo: 'Week 1: IoT & Embedded Systems Basics' },
@@ -35,10 +28,6 @@ const weekLinks = {
     21: { pdfLink: 'https://raw.githubusercontent.com/Binaryfetch/TR-103_DAILY-DIARY/main/DAY-21.pdf', additionalInfo: 'Week 21: GUI Development Using Tkinter' }
 };
 
-function formatDate(date) {
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
 function openPdfInNewTab(pdfPath) {
     if (!pdfPath) {
         return;
@@ -48,74 +37,32 @@ function openPdfInNewTab(pdfPath) {
 
 function generateWeekCards() {
     const grid = document.getElementById('week-grid');
-    const startDate = new Date(2026, 0, 5);
 
     for (let week = 1; week <= 21; week += 1) {
         const card = document.createElement('div');
         card.className = 'week-card';
-
-        const weekStart = new Date(startDate);
-        weekStart.setDate(startDate.getDate() + (week - 1) * 7);
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
-
-        const rangeText = `${formatDate(weekStart)} – ${formatDate(weekEnd)}`;
         const hasPdf = Boolean(weekLinks[week]);
+        const icon = weekIcons[(week - 1) % weekIcons.length];
 
         card.innerHTML = `
+            <div class="week-card-icon">${icon}</div>
             <div class="week-meta">
                 <span class="week-number">Week ${week}</span>
-                <span class="week-range">${rangeText}</span>
+                <span class="week-tag">Progress</span>
             </div>
-            <p>${hasPdf ? weekLinks[week].additionalInfo : 'PDF not available for this week yet.'}</p>
-            <a class="week-action ${hasPdf ? '' : 'disabled'}" href="#" data-pdf="${hasPdf ? weekLinks[week].pdfLink : ''}">${hasPdf ? 'Open PDF' : 'Coming Soon'}</a>
+            <p>${hasPdf ? weekLinks[week].additionalInfo : 'PDF is not available for this week yet.'}</p>
+            <a class="week-action ${hasPdf ? '' : 'disabled'}" href="${hasPdf ? weekLinks[week].pdfLink : '#'}" target="_blank" rel="noopener noreferrer">Open PDF</a>
         `;
 
         card.addEventListener('click', function(event) {
             if (event.target.closest('.week-action')) {
                 return;
             }
-            showEntry(week, rangeText);
-        });
-
-        const action = card.querySelector('.week-action');
-        action.addEventListener('click', function(event) {
-            event.preventDefault();
             if (hasPdf) {
                 openPdfInNewTab(weekLinks[week].pdfLink);
             }
-            showEntry(week, rangeText);
         });
 
         grid.appendChild(card);
-    }
-}
-
-function showEntry(weekNumber, rangeText) {
-    const titleElement = document.getElementById('entry-title');
-    const textElement = document.getElementById('entry-text');
-    const badge = document.getElementById('selected-week-badge');
-    const link = document.getElementById('download-link');
-    const info = document.getElementById('additional-info');
-
-    titleElement.textContent = `Week ${weekNumber} Diary Preview`;
-    textElement.textContent = `Timeline: ${rangeText}. Click the button below to view the weekly diary PDF.`;
-    badge.textContent = `Week ${weekNumber}`;
-
-    if (weekLinks[weekNumber]) {
-        link.dataset.pdf = weekLinks[weekNumber].pdfLink;
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener noreferrer');
-        link.style.display = 'inline-flex';
-        info.textContent = weekLinks[weekNumber].additionalInfo;
-        info.classList.add('active');
-    } else {
-        link.removeAttribute('href');
-        link.removeAttribute('data-pdf');
-        link.removeAttribute('target');
-        link.removeAttribute('rel');
-        link.style.display = 'none';
-        info.textContent = 'This week does not have a PDF attached yet.';
-        info.classList.add('active');
     }
 }
